@@ -53,7 +53,7 @@ class sec_audit(
 	$log_dir = "${base_dir}/log"
 
   	cron { 'docker_registry_auth':
-    	command => "cat ${srcfile} | $script_dir/aws_security_group_check.rb --cron | $script_dir/check_if_sg_changed.sh",
+    	command => "/bin/bash -l -c 'cat ${srcfile} | $script_dir/aws_security_group_check.rb --cron | $script_dir/check_if_sg_changed.sh'",
     	hour    => '*/1',
     	minute  => 0,
     	require => File['aws_security_group_check','check_if_sg_changed']

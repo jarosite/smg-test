@@ -1,8 +1,9 @@
 #!/bin/bash
-PIPE_IN=`cat`
-BASE_DIR=$(dirname "$0")/..
+[ $# -ge 1 -a -f "$1" ] && PIPE_IN="$1" || PIPE_IN="-"
+SCRIPT="${BASH_SOURCE[${#BASH_SOURCE[@]} - 1]}"
+BASE_DIR=$(dirname "$SCRIPT")/..
 CURRENT_REPORT=$BASE_DIR/data/sg_report_current.txt
-echo "$PIPE_IN" > $CURRENT_REPORT
+cat "$PIPE_IN" > $CURRENT_REPORT
 PREVIOS_REPORT=$BASE_DIR/data/sg_report.txt
 LOG_FILE=$BASE_DIR/log/sg_compare.log
 #set -x
