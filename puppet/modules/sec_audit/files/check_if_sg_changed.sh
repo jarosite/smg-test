@@ -1,9 +1,10 @@
 #!/bin/bash
 PIPE_IN=`cat`
-CURRENT_REPORT=./sg_report_current.txt
+BASE_DIR=$(dirname "$0")/..
+CURRENT_REPORT=$BASE_DIR/data/sg_report_current.txt
 echo "$PIPE_IN" > $CURRENT_REPORT
-PREVIOS_REPORT=./sg_report.txt
-LOG_FILE=./sg_compare.log
+PREVIOS_REPORT=$BASE_DIR/data/sg_report.txt
+LOG_FILE=$BASE_DIR/log/sg_compare.log
 #set -x
 function logger() {
 	echo "$1" | while read a; do echo "[$(date)] $a"; done
@@ -11,11 +12,7 @@ function logger() {
 {
 	if [ ! -f $PREVIOS_REPORT ]; then
 		logger "previos report $PREVIOS_REPORT does not exist, nothing to compare, exit(1) now"
-		exit 1
-	fi
-
-	if [ ! -f $CURRENT_REPORT ]; then
-		logger "current report $CURRENT_REPORT does not exist, nothing to compare, exit(1) now"
+		mv $CURRENT_REPORT $PREVIOS_REPORT
 		exit 1
 	fi
 
