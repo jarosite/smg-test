@@ -43,10 +43,10 @@
 # Copyright 2016 Your name here, unless otherwise noted.
 #
 class sec_audit(
-	srcfile => '/opt/data/testsecgroups.txt'
+	$srcfile = '/opt/data/testsecgroups.txt',
+	$base_dir = '/home/ec2-user/sec_audit'
 	){
-
-	$base_dir = "~/sec_audit"
+	
 	$script_dir = "${base_dir}/bin"
 	$data_dir = "${base_dir}/data"
 	#TODO move me to /var/log/sec_audit and add logrotate
@@ -63,7 +63,7 @@ class sec_audit(
   		ensure => directory,
   		mode   => '0755',
   	}
-
+  	#TODO setup ruby
   	file { 'aws_security_group_check': 
 		path => "$script_dir/aws_security_group_check.rb",
 		ensure => file,
